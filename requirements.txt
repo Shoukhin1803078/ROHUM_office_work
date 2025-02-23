@@ -1,3 +1,11 @@
-pip install fastapi uvicorn python-multipart SpeechRecognition PyPDF2 python-docx
-langchain_community langchain_groq langgraph
-pip install SpeechRecognition pydub
+fastapi 
+uvicorn 
+python-multipart 
+SpeechRecognition 
+PyPDF2 
+python-docx
+langchain_community 
+langchain_groq 
+langgraph
+SpeechRecognition 
+pydub
