@@ -1,44 +1,4 @@
-# from fastapi import FastAPI, HTTPException
-# from pydantic import BaseModel
-# from typing import List, Dict
-# from langchain_community.tools.tavily_search import TavilySearchResults
-# from langchain_groq import ChatGroq
-# import os
-# from dotenv import load_dotenv
 
-
-# from fastapi import FastAPI, UploadFile, File, Form,HTTPException
-# from fastapi.responses import JSONResponse
-# from fastapi.middleware.cors import CORSMiddleware
-# from pydantic import BaseModel
-# from typing import Optional
-# from langchain_community.tools.tavily_search import TavilySearchResults
-# from langchain_groq import ChatGroq
-# import os
-# from dotenv import load_dotenv
-# import PyPDF2
-# import docx
-# import io
-
-
-
-
-# from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-# from fastapi.responses import JSONResponse
-# from fastapi.middleware.cors import CORSMiddleware
-# from pydantic import BaseModel
-# from typing import Optional
-# from langchain_community.tools.tavily_search import TavilySearchResults
-# from langchain_groq import ChatGroq
-# import os
-# from dotenv import load_dotenv
-# import PyPDF2
-# import docx
-# import io
-# import speech_recognition as sr
-# import tempfile
-# import wave
-# from pydub import AudioSegment
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
@@ -49,7 +9,6 @@ from pydub import AudioSegment
 import shutil
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# Check if ffmpeg is installed
 FFMPEG_INSTALLED = shutil.which('ffmpeg') is not None
 from langchain_groq import ChatGroq
 import os
@@ -63,21 +22,17 @@ import wave
 
 
 
-# Load environment variables
 load_dotenv()
 os.environ["GROQ_API_KEY"] = ""
 os.environ["TAVILY_API_KEY"] = ""
 
-# Initialize FastAPI app
 app = FastAPI(title="Research API")
 
-# Initialize Groq LLM
 llm = ChatGroq(
     model_name="llama-3.3-70b-versatile",
     temperature=0.5
 )
 
-# Pydantic model for request
 class Query(BaseModel):
     text: str
 
@@ -141,7 +96,6 @@ async def process_audio_file(audio_file: bytes, filename: str) -> str:
     temp_files = []
     
     try:
-        # Check if file is MP3 and FFmpeg is required
         is_mp3 = filename.lower().endswith('.mp3')
         if is_mp3 and not FFMPEG_INSTALLED:
             raise HTTPException(
@@ -149,10 +103,9 @@ async def process_audio_file(audio_file: bytes, filename: str) -> str:
                 detail="FFmpeg is not installed. Please install FFmpeg to process MP3 files."
             )
         
-        # Handle MP3 files by converting to WAV first
+
         if is_mp3:
             try:
-                # Save MP3 to temporary file
                 with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_mp3:
                     temp_mp3.write(audio_file)
                     temp_mp3_path = temp_mp3.name
